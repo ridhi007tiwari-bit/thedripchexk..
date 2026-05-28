@@ -292,7 +292,9 @@ cursor:pointer;
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-
+<div class="profile-icon">
+<i class="fas fa-user"></i>
+</div>
 <div id="bg-comet"></div>
 <div id="bg-space"></div>
 <div id="bg-earth"></div>
@@ -579,10 +581,13 @@ Oversized fit. Heavy fabric. Cosmic aesthetic.
 </p>
 
 <div class="size-options">
-<button class="size-btn">S</button>
-<button class="size-btn">M</button>
-<button class="size-btn">L</button>
-<button class="size-btn">XL</button>
+<button class="size-btn" onclick="selectSize(this,'S')">S</button>
+
+<button class="size-btn" onclick="selectSize(this,'M')">M</button>
+
+<button class="size-btn" onclick="selectSize(this,'L')">L</button>
+
+<button class="size-btn" onclick="selectSize(this,'XL')">XL</button>
 </div>
 
 <button class="cart-btn" onclick="addToCart()">Add To Cart</button>
@@ -617,9 +622,27 @@ document.getElementById('productModal').classList.add('active');
 function closeProduct(){
 document.getElementById('productModal').classList.remove('active');
 }
+let selectedSize = "";
 
+function selectSize(button,size){
+
+selectedSize = size;
+
+document.querySelectorAll('.size-btn').forEach(btn=>{
+btn.style.background = "#111";
+btn.style.color = "white";
+});
+
+button.style.background = "#f0c060";
+button.style.color = "black";
+
+}
 function addToCart(){
-alert('Product added to cart successfully.');
+if(selectedSize === ""){
+alert("Please select a size first.");
+return;
+}
+  alert('Product added to cart successfully.');
 }
 </script>
 
@@ -656,7 +679,9 @@ function addToCart(){
 const product = {
 title: document.getElementById('modalTitle').innerText,
 price: document.getElementById('modalPrice').innerText,
-image: document.getElementById('modalImage').src
+image: document.getElementById('modalImage').src,
+
+size: selectedSize
 };
 
 cart.push(product);
@@ -687,7 +712,7 @@ style="width:100%;border-radius:10px;margin-bottom:10px;">
 <h4>${item.title}</h4>
 
 <p>${item.price}</p>
-
+<p>Size: ${item.size}</p>
 <button onclick="removeItem(${index})"
 style="
 background:red;
