@@ -120,6 +120,32 @@ footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem;
   .products-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
   .product-img{height:200px}
 }
+.profile-icon{
+position:absolute;
+top:20px;
+right:20px;
+width:42px;
+height:42px;
+border-radius:50%;
+background:rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.3);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:silver;
+cursor:pointer;
+backdrop-filter:blur(10px);
+
+transition:0.3s;
+z-index:999;
+}
+
+.profile-icon:hover{
+transform:scale(1.08);
+background:rgba(255,255,255,0.2);
+}
 </style>
 
 <style>
@@ -263,6 +289,7 @@ cursor:pointer;
 }
 </style>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -697,3 +724,4 @@ updateCartUI();
 
 </body>
 </html>
+
