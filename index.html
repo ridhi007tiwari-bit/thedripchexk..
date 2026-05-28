@@ -615,7 +615,10 @@ Proceed to Checkout
 </div>
 
 <script>
-let cart = [];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+updateCartUI();
 
 function toggleCart(){
 document.getElementById('cartSidebar').classList.toggle('active');
@@ -631,9 +634,12 @@ image: document.getElementById('modalImage').src
 
 cart.push(product);
 
+localStorage.setItem("cart", JSON.stringify(cart));
+
 updateCartUI();
 
 alert('Product added to cart.');
+
 }
 
 function updateCartUI(){
@@ -643,13 +649,31 @@ const cartCount = document.getElementById('cartCount');
 
 cartItems.innerHTML = '';
 
-cart.forEach(item => {
+cart.forEach((item,index) => {
 
 cartItems.innerHTML += `
 <div class="cart-item">
-<img src="${item.image}" style="width:100%;border-radius:10px;margin-bottom:10px;">
+
+<img src="${item.image}" 
+style="width:100%;border-radius:10px;margin-bottom:10px;">
+
 <h4>${item.title}</h4>
+
 <p>${item.price}</p>
+
+<button onclick="removeItem(${index})"
+style="
+background:red;
+color:white;
+border:none;
+padding:8px 12px;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+">
+Remove
+</button>
+
 </div>
 `;
 
@@ -658,13 +682,17 @@ cartItems.innerHTML += `
 cartCount.innerText = cart.length;
 
 }
-</script>
 
+function removeItem(index){
 
-<script>
-document.querySelectorAll('[contenteditable]').forEach(el => {
-  el.removeAttribute('contenteditable');
-});
+cart.splice(index,1);
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+updateCartUI();
+
+}
+
 </script>
 
 </body>
